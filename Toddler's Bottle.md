@@ -32,12 +32,12 @@ nc = remote("pwnable.kr",9000)
 nc.send(message)
 nc.interactive()
 ```  
-**Flag**
+**Flag**  
 daddy, I just pwned a buFFer :)
 
 ## flag
 Use 'strings' to search which packer -> UPX  
 Use 'upx -d flag' to unpack  
-Use 'string' to find the flag
-**Flag**
+Use 'string' to find the flag  
+**Flag**  
 UPX...? sounds like a delivery service :)
