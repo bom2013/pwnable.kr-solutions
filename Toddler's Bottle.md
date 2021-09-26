@@ -141,7 +141,7 @@ Mommy! I learned how to pass various input in Linux :)
 
 
 ## leg
-This is a RE ARM challenge :)  
+This is basic ARM Reverse Engineering challenge :)  
 we need key = key1()+key2()+key3()  
 ### key1
 key1() return the value of 'pc' register, in ARM its 2 instruction ahead: 
