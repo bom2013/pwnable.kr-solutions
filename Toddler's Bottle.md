@@ -2,8 +2,8 @@
 
 ## fd
 use 4660 as argument(-> fd = 4660 - 0x1234 = 0 = stdin)
-and then enter 'LETMEWIN'  
-**Flag**  
+and then enter 'LETMEWIN'
+#### Flag 
 mommy! I think I know what a file descriptor is!!
 
 ## collision
@@ -19,7 +19,7 @@ Oh yeh!
 ...
 col@pwnable:~$ ./col `printf "PPPPPPPPPPPPPPPP\xac\xc8\x9b\xe0"`
 ```  
-**Flag**  
+#### Flag 
 daddy! I just managed to create a hash collision :)
 
 ## bof
@@ -39,7 +39,7 @@ daddy, I just pwned a buFFer :)
 Use 'strings' to search which packer -> UPX  
 Use 'upx -d flag' to unpack  
 Use 'string' to find the flag  
-**Flag**  
+#### Flag 
 UPX...? sounds like a delivery service :)
 
 
@@ -103,7 +103,7 @@ enter you name : Welcome AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 Sorry mom.. I got confused about scanf usage :(
 enter passcode1 : Now I can safely trust you that you have credential :)
 ```  
-**Flag**  
+#### Flag 
 Sorry mom.. I got confused about scanf usage :(
 
 
@@ -111,7 +111,7 @@ Sorry mom.. I got confused about scanf usage :(
 rand() without seed -> always the same series of numbers ...  
 The series begins with 1804289383  
 -> 0xdeadbeef ^ 1804289383 = 3039230856  
-**Flag**  
+#### Flag 
 Mommy, I thought libc random is unpredictable...
 
 
@@ -136,5 +136,63 @@ Stage 4 clear!
 Stage 5 clear!
 Mommy! I learned how to pass various input in Linux :)
 ```  
-**Flag**  
+#### Flag 
 Mommy! I learned how to pass various input in Linux :)
+
+
+## leg
+This is a RE ARM challenge :)  
+we need key = key1()+key2()+key3()  
+### key1
+key1() return the value of 'pc' register, in ARM its 2 instruction ahead: 
+```shell
+(gdb) disass key1
+Dump of assembler code for function key1:
+   ...
+   0x00008cdc <+8>:	mov	r3, pc  			<= here whe get pc
+   0x00008ce0 <+12>:	mov	r0, r3
+   0x00008ce4 <+16>:	sub	sp, r11, #0		<= pc point to here
+   ...
+End of assembler dump.
+```
+-> key1 =  0x00008ce4
+### key2
+key2() do some gibberish and than return pc at some point
+```shell
+(gdb) disass key2
+Dump of assembler code for function key2:
+   0x00008cf0 <+0>:	push	{r11}		; (str r11, [sp, #-4]!)
+   0x00008cf4 <+4>:	add	r11, sp, #0
+   0x00008cf8 <+8>:	push	{r6}		; (str r6, [sp, #-4]!)
+   0x00008cfc <+12>:	add	r6, pc, #1	; r6 = pc+1 = 0x00008d04+1
+   0x00008d00 <+16>:	bx	r6 			; jump to next instruction(0x00008d04) and change to Thumb mode
+   0x00008d04 <+20>:	mov	r3, pc		; r3 = pc = 0x00008d08
+   0x00008d06 <+22>:	adds	r3, #4	; r3 = r3+4 = 0x00008d0c
+   ...
+   0x00008d10 <+32>:	mov	r0, r3 		; r0 = r3 = 0x00008d0c
+End of assembler dump.
+```
+-> key2 = 0x00008d0c
+### key3
+key3() return the **lr** register
+```shell
+(gdb) disass main
+Dump of assembler code for function main:
+   ...
+   ; key1()
+   0x00008d68 <+44>:	bl	0x8cd4 <key1>
+   0x00008d6c <+48>:	mov	r4, r0
+   ; key2()
+   0x00008d70 <+52>:	bl	0x8cf0 <key2>
+   0x00008d74 <+56>:	mov	r3, r0
+   0x00008d78 <+60>:	add	r4, r4, r3
+   ; key3()
+   0x00008d7c <+64>:	bl	0x8d20 <key3>
+   0x00008d80 <+68>:	mov	r3, r0 			<= lr point to return address
+   0x00008d84 <+72>:	add	r2, r4, r3
+   ...
+```
+-> key3 = 0x00008d80  
+=> key = key1 + key2 + key3 = 0x00008ce4 + 0x00008d0c + 0x00008d80 = 108400  
+#### Flag 
+My daddy has a lot of ARMv5te muscle!
