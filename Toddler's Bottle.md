@@ -113,3 +113,28 @@ The series begins with 1804289383
 -> 0xdeadbeef ^ 1804289383 = 3039230856  
 **Flag**  
 Mommy, I thought libc random is unpredictable...
+
+
+## input
+5 steps, each requiring a different form of software input (command line arguments, Pipes, user environment, files and sockets).  
+I built the [following program](https://gist.github.com/bom2013/51c6012dfa826b4d0aa73e736115760c) (C, I know it's horrible, but got into trouble with the pwn library in Python😅)
+To run the server-side script, follow these steps:
+```shell
+input2@pwnable:~$ mkdir /tmp/asdf
+input2@pwnable:~$ cd /tmp/asdf
+input2@pwnable:/tmp/asdf$ ln -s /home/input2/flag flag
+input2@pwnable:/tmp/asdf$ nano input-sol.c
+input2@pwnable:/tmp/asdf$ gcc input-sol.c -o input-sol
+input2@pwnable:/tmp/asdf$ ./input-sol
+Welcome to pwnable.kr
+Let's see if you know how to give input to program
+Just give me correct inputs then you will get the flag :)
+Stage 1 clear!
+Stage 2 clear!
+Stage 3 clear!
+Stage 4 clear!
+Stage 5 clear!
+Mommy! I learned how to pass various input in Linux :)
+```  
+**Flag**  
+Mommy! I learned how to pass various input in Linux :)
