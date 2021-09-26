@@ -105,3 +105,11 @@ enter passcode1 : Now I can safely trust you that you have credential :)
 ```  
 **Flag**  
 Sorry mom.. I got confused about scanf usage :(
+
+
+## random
+rand() without seed -> always the same series of numbers ...  
+The series begins with 1804289383  
+-> 0xdeadbeef ^ 1804289383 = 3039230856  
+**Flag**  
+Mommy, I thought libc random is unpredictable...
