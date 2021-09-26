@@ -48,7 +48,7 @@ When gcc the file get warning about pass 'int' and not 'int *'
 This means writing to a value that is in the variable 'passcode1'-> Junk seemingly  
 Is there a way to change it before we get there and thus write to the good place?  
 In the "welcome" function(Which performed before login function) we write to 'name', by using gdb you see the location of **'name'** variable in the stack:
-```shell
+```
 (gdb) disas welcome
 Dump of assembler code for function welcome:
    ...
@@ -62,7 +62,7 @@ End of assembler dump.
 -> &name = ebp-0x70  
 welcome and login using the same stack...  
 lets see the location of **'passcode1'** in the stack using gdb:
-```shell
+```
 (gdb) disas login
 Dump of assembler code for function login:
    ...
@@ -76,7 +76,7 @@ End of assembler dump.
 -> &passcode1 = ebp-0x10  
 -> the distance between them is 0x70-0x10 = 96, we can write 100 -> we can overwrite 4 byte of passcode1 -> Yoo!  
 What will we write? We want to put a value of a place in the memory that we then jump from, Fortunately we have a call to the **fflush** function that is not executed directly but through the plt mechanism so we have a jump:
-```shell
+```
 (gdb) disas fflush
 Dump of assembler code for function fflush@plt:
    0x08048430 <+0>:     jmp    *0x804a004
@@ -86,7 +86,7 @@ End of assembler dump.
 ```
 So if we put the value 0x804a004 in passcode before we get input to him, when we will get the the point we put input we can insert the address we want the program to jump to.  
 Lets find this address using gdb:
-```shell
+```
 (gdb) disas login
 Dump of assembler code for function login:
    ...
@@ -145,20 +145,20 @@ This is basic ARM Reverse Engineering challenge :)
 we need key = key1()+key2()+key3()  
 ### key1
 key1() return the value of 'pc' register, in ARM its 2 instruction ahead: 
-```shell
+```
 (gdb) disass key1
 Dump of assembler code for function key1:
    ...
-   0x00008cdc <+8>:	mov	r3, pc  			<= here whe get pc
+   0x00008cdc <+8>:	mov	r3, pc         <= here whe get pc
    0x00008ce0 <+12>:	mov	r0, r3
-   0x00008ce4 <+16>:	sub	sp, r11, #0		<= pc point to here
+   0x00008ce4 <+16>:	sub	sp, r11, #0    <= pc point to here
    ...
 End of assembler dump.
 ```
 -> key1 =  0x00008ce4
 ### key2
 key2() do some gibberish and than return pc at some point
-```shell
+```
 (gdb) disass key2
 Dump of assembler code for function key2:
    0x00008cf0 <+0>:	push	{r11}		; (str r11, [sp, #-4]!)
@@ -175,7 +175,7 @@ End of assembler dump.
 -> key2 = 0x00008d0c
 ### key3
 key3() return the **lr** register
-```shell
+```
 (gdb) disass main
 Dump of assembler code for function main:
    ...
