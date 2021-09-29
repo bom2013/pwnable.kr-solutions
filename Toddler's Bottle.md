@@ -287,3 +287,21 @@ YaY_I_AM_A_MILLIONARE_LOL
 ```
 #### Flag
 YaY_I_AM_A_MILLIONARE_LOL
+
+
+## lotto
+The program create 6 letter lotto code(1-45) and then for some reason comapre *every* letter in input to every letter in the lotto number.
+we need the comparesion to be equal six time, we can guess the number(very stupid strategy) or we can try input 6 same digits, if the digits is somewhere in the lotto is will compare to it 6 time(one for every digit in the input), we need letter between 1-45, I choose '+', its take some time and then work:
+```shell
+lotto@pwnable:~$ ./lotto
+- Select Menu -
+1. Play Lotto
+2. Help
+3. Exit
+1
+Submit your 6 lotto bytes : ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+....
+sorry mom... I FORGOT to check duplicate numbers... :(
+```
+#### Flag
+sorry mom... I FORGOT to check duplicate numbers... :(
