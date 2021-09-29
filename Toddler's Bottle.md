@@ -196,3 +196,26 @@ Dump of assembler code for function main:
 => key = key1 + key2 + key3 = 0x00008ce4 + 0x00008d0c + 0x00008d80 = 108400  
 #### Flag 
 My daddy has a lot of ARMv5te muscle!
+
+## mistake
+In running the program he receives input twice for some reason.  
+When examining the code you notice a wonderful weakness, carelessness and fall in [Operator Precedence](https://en.cppreference.com/w/c/language/operator_precedence):
+```c
+if(fd=open("/home/mistake/password",O_RDONLY,0400) < 0){
+      printf("can't open password %d\n", fd);
+      return 0;
+}
+```
+the operator '<' is performed before the operator '=' so what actually happens is that we open the file (returns 1 since the file exists and should not be a problem in opening it), comparing the result(1) to 0 (certainly not less than 0) -> Returns 0 and we puts the result in fd, so that in practice when you read from fd you read from stdin.
+So all it takes is to insert a string in pw_buf and a string in pw_buf2 so that their comparison (after the xor function) is equal.  
+We will use an auxiliary function to calculate the xor:
+```python
+def xor(s):
+   return "".join([chr(ord(i)^1) for i in s])
+pw_buf = "AAAAAAAAAA"
+pw_buf2 = xor(pw_buf)
+print("pw_buf:", pw_buf)                     # AAAAAAAAAA
+print("pw_buf2:", pw_buf2)                   # @@@@@@@@@@
+```
+#### Flag
+Mommy, the operator priority always confuses me :(
