@@ -233,6 +233,22 @@ Segmentation fault (core dumped)
 only if I knew CVE-2014-6271 ten years ago..!!
 
 ## coin1
+Use [this](https://gist.github.com/bom2013/e3d30f0b362a1177d2c40c0cba6a411c) script to doing the calculation(binary search :))
+```shell
+server@pwnable:$ python coin1.py
+[x] Opening connection to localhost on port 9007
+[x] Opening connection to localhost on port 9007: Trying ::1
+[x] Opening connection to localhost on port 9007: Trying 127.0.0.1
+[+] Opening connection to localhost on port 9007: Done
+0
+('message:', u'N=895 C=10\n')
+...
+Congrats! get your flag
+b1NaRy_S34rch1nG_1s_3asy_p3asy
+```
+#### Flag
+b1NaRy_S34rch1nG_1s_3asy_p3asy
+
 
 ## blackjack
 Simple text-based blackjack game, but when he check bet he doesn't check if the bet is negative number:
