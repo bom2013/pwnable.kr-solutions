@@ -232,3 +232,58 @@ Segmentation fault (core dumped)
 #### Flag
 only if I knew CVE-2014-6271 ten years ago..!!
 
+## coin1
+
+## blackjack
+Simple text-based blackjack game, but when he check bet he doesn't check if the bet is negative number:
+```c
+int betting() //Asks user amount to bet
+{
+ printf("\n\nEnter Bet: $");
+ scanf("%d", &bet);
+
+ if (bet > cash) //If player tries to bet more money than player has
+ {
+		printf("\nYou cannot bet more money than you have.");
+		printf("\nEnter Bet: ");
+        scanf("%d", &bet);
+        return bet;
+ }
+ else return bet;
+} // End Function
+```
+We want more than million so lets enter big negative number:
+```shell
+Cash: $500
+-------
+|C    |
+|  5  |
+|    C|
+-------
+
+Your Total is 5
+
+The Dealer Has a Total of 10
+
+Enter Bet: -9999999999
+
+
+Would You Like to Hit or Stay?
+Please Enter H to Hit or S to Stay.
+S
+
+You Have Chosen to Stay at 5. Wise Decision!
+
+The Dealer Has a Total of 18
+Dealer Has the Better Hand. You Lose.
+
+You have 0 Wins and 1 Losses. Awesome!
+
+Would You Like To Play Again?
+Please Enter Y for Yes or N for No
+Y
+
+YaY_I_AM_A_MILLIONARE_LOL
+```
+#### Flag
+YaY_I_AM_A_MILLIONARE_LOL
