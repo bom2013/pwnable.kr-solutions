@@ -324,7 +324,7 @@ sorry mom... I FORGOT to check duplicate numbers... :(
 
 
 ## cmd1
-We need to insert code that will print flag aand will not contain 'flag', 'sh' or 'tmp':
+We need to insert code that will print flag and will not contain 'flag', 'sh' or 'tmp':
 ```shell
 cmd1@pwnable:~$ ./cmd1 'a='fl' && b='ag' && /bin/cat "${a}${b}"'
 mommy now I get what PATH environment is for :)
